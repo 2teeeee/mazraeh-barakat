@@ -56,7 +56,7 @@ class HomeController extends Controller {
      */
     public function __construct() 
     {
-         $this->middleware('check.info.user');
+        // $this->middleware('check.info.user');
     }
 
     /**
