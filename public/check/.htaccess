@@ -1,0 +1,4 @@
+AuthName "Check"
+AuthType Basic
+AuthUserFile /home/admin/public_html/check/.htpasswd
+require check

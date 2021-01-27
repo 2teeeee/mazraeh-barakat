@@ -1,0 +1,123 @@
+
+.form-control::-webkit-input-placeholder { /* Edge */
+    color: #929292;
+    font-size: 12px;
+}
+
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #929292;
+    font-size: 12px;
+}
+
+.form-control::placeholder {
+    color: #929292;
+    font-size: 12px;
+}
+.line-v{
+    height: 5px;
+    width:100%;
+}
+.cart-count{
+    width: 25px;
+    height: 24px;
+    padding: 3px 0;
+    letter-spacing: -.3px;
+    text-align: center;
+    display: block;
+}
+.card-h:hover{
+    background: rgba(30,126,52,0.15);
+}
+.top-menu .dropdown-toggle::after {
+    margin-top: 1rem;
+}
+.body-color{
+    background: #ebf0f6;
+}
+.footer-top{
+    background: #98ccd3;
+}
+.footer-mid{
+    background: #364e68;
+}
+.footer-bottom{
+    
+}
+.about-box a{
+    transition: all .2s ease-in;
+}
+.about-box a:hover{
+    margin-right: 10px;
+    font-weight: bold;
+}
+.copyright{
+    font-size: 11px;
+}
+
+.img-banner{
+    width: 100%;
+}
+
+.box-card .card-body{
+    height: 120px;
+    padding: 10px 1.25rem;
+}
+.box-card .link-card:hover{
+    margin-top: 0.6rem !important;
+}
+.box-card del{
+    font-size: 11px;
+}
+
+.menu-color{
+    color: #647434 !important;
+}
+.menu-color:hover{
+    color: #7ab728 !important;
+}
+
+.shadow-info{
+    box-shadow: 0 0.2rem 0.5rem rgba(23, 162, 184, 0.2) !important;
+}
+.shadow-success{
+    box-shadow: 0 0.2rem 0.5rem rgba(40, 167, 69, 0.2) !important;
+}
+.shadow-danger{
+    box-shadow: 0 0.2rem 0.5rem rgba(220, 53, 69, 0.2) !important;
+}
+.shadow-warning{
+    box-shadow: 0 0.2rem 0.5rem rgba(255, 193, 7, 0.2) !important;
+}
+.border-bottom-green{
+    border-bottom: 1px solid #647434 !important;
+}
+.cube-85{
+    width: 85px;
+    height: 85px;
+}
+.font-light{
+    color: #fafafa;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+    padding: 0 0.5rem;
+}
+.bg-header{
+	background-color: #c1e8c1 !important;
+}
+.bg-body{
+	background-color: #d7e0db !important;
+}
+.bg-title{
+	background: rgb(215,224,219);
+background: -moz-linear-gradient(90deg, rgba(215,224,219,1) 14%, rgba(0,63,25,1) 100%);
+background: -webkit-linear-gradient(90deg, rgba(215,224,219,1) 14%, rgba(0,63,25,1) 100%);
+background: linear-gradient(90deg, rgba(215,224,219,1) 14%, rgba(0,63,25,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#d7e0db",endColorstr="#003f19",GradientType=1);
+	
+}
+.bg-footer{
+	background-color: #003F19 !important;
+}
+.border-right-green{
+    border-right: 1px solid #00AD4E !important;
+}

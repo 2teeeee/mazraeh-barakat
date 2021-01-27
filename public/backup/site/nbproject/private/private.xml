@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/xampp/htdocs/jahad/routes/web.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/resources/views/profile/index.blade.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/app/Http/Controllers/KoodReqController.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/resources/views/sep/pay.blade.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/app/Helpers/Sms.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/app/User.php</file>
+            <file>file:/C:/xampp/htdocs/jahad/app/Http/Controllers/SepBankController.php</file>
+        </group>
+    </open-files>
+</project-private>
