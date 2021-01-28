@@ -172,10 +172,23 @@ class User extends Authenticatable
     //    return $this->takhsis()->where('kood_id',$id)->where('type',-1)->sum('tonne');
 		return $kood->tone;
     }
+	
+    public function koodReserve($id)
+    {
+		$kood = KoodReq::select(DB::raw('sum(tbl_kood_reqs.value) as kise'),
+								 DB::raw('ROUND(sum(tbl_kood_reqs.value * 50 / 1000),1) as tone'))
+			->where('kood_reqs.status','=',0)
+			->where('kood_reqs.broker_id',$this->id)
+			->where("updated_at", ">", date('m') - 10)
+			->where('kood_reqs.kood_id',$id)->first();
+		return $kood->tone;
+    }
+	
     public function koodVal($id)
     {
-        return $this->koodAdd($id) - $this->koodremove($id);
+        return $this->koodAdd($id) - $this->koodremove($id) - $this->koodReserve($id);
     }
+	
     public function koodValBag($id)
     {
         return $this->koodVal($id) * 1000 / 50;
