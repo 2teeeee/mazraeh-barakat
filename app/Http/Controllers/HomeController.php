@@ -69,6 +69,7 @@ public function testLang()
 {
     return view('lan');
 }
+	
 
     public function test()
     {
