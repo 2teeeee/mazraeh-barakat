@@ -437,6 +437,7 @@ class KoodReqController extends Controller
 		
 
         $brokerValue = $broker?$broker->koodValBag($koodId):0;
+		
 		$shotValue = 0;
         
         $zaminSize = 0;
@@ -574,6 +575,7 @@ class KoodReqController extends Controller
             'sendVal' => $sendTypeVal,
             'btnStatus' => "1",
             'checkBroker' => $checkBroker,
+			'brokerValue' => $brokerValue,
          //   'getKood' => $getKood,
          //   'remKood' => $remKood,
          //   'numbReq' => $numbReq,
@@ -601,24 +603,7 @@ class KoodReqController extends Controller
 	
     public function endSale(Request $request)
     {       
-     //   return Redirect::to('lock.html');
         $request->user()->authorizeRoles(['admin','manager','programmer','planter']);
-        
-        
-        // validate
-        // read more on validation at http://laravel.com/docs/validation
-//        $rules = array(
-//            'dargah' => 'required',
-//            'name' => 'required',
-//            'mobile' => 'required',
-//            'address' => 'required'
-//        );
-//        $validator = Validator::make(Input::all(), $rules);
-//        if ($validator->fails()) {
-//            return Redirect::to('prod/cart')
-//                ->withErrors($validator)->withInput();
-//        }
-        
         
         $reqPay = new RequestPay;
      //   $reqPay->request_id = $model->id;
@@ -634,6 +619,17 @@ class KoodReqController extends Controller
             $reqPayKood->save();
             
             $total = $total + (($item->price * $item->quantity) + $item->attributes->req->send->value);
+		
+			$req = KoodReq::find($item->id);
+			$brokerVal = $req?($req->broker->koodValBag($req->kood_id)):0;
+			$val = $req->value;
+			if($val > $brokerVal)
+			{
+				Cart::remove($item->id);
+				Session::flash('error', 'کارگزار انتخابی ظرفیت کافی برای ارائه کود مورد نظر برای محصول '.$req->product->title.' شما را ندارد.');
+                
+				return Redirect::to('koodReq/cart');
+			}
        	endforeach;
 		
 		$reqPay->price = $total;
@@ -643,7 +639,6 @@ class KoodReqController extends Controller
 
 		return Redirect::to('sep/'.$reqPay->id);  
         
-    //    return View('admin.request.koodReq.verify');
     }
 	
 	public function ezhar($id,Request $request)

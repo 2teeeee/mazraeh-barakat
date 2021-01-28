@@ -179,7 +179,8 @@ class User extends Authenticatable
 								 DB::raw('ROUND(sum(tbl_kood_reqs.value * 50 / 1000),1) as tone'))
 			->where('kood_reqs.status','=',0)
 			->where('kood_reqs.broker_id',$this->id)
-			->where("updated_at", ">", date('m') - 10)
+			->whereDate('updated_at','>=', date("Y-m-d",time()-600))
+			->whereTime('updated_at', '>', date("H:i:s",time()-600))
 			->where('kood_reqs.kood_id',$id)->first();
 		return $kood->tone;
     }

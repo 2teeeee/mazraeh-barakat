@@ -12,6 +12,7 @@ use App\Models\BagPay;
 use App\Models\RequestPay;
 use App\Models\KoodReq;
 use App\Models\BrokerKood;
+use App\Models\PaymentStat;
 
 use Cart;
 use Illuminate\Support\Facades\Redirect;
@@ -68,7 +69,6 @@ class SepBankController extends Controller
         
         $valuePay = $req->price;
         
-		
         $MerchantId = $this->MerchantID;
         $Amount = $payment->price; //Rials
         $OrderId = $payment->orderCode;
@@ -93,8 +93,6 @@ class SepBankController extends Controller
 		$client 	= new nusoap_client('https://sep.shaparak.ir/Payments/InitPayment.asmx?WSDL','wsdl');
         $result 	= $client->call('RequestToken', $parameters);
 
-      //  echo $result;
-      //  return;
         return view("sep.pay")->with([
             'MID' => $MerchantId, 
             'ResNum' => $OrderId,
@@ -128,7 +126,13 @@ class SepBankController extends Controller
             $checkPay = Payment::where('transactionRef',$RefNum)->first();
             if($checkPay == null)
             {
-
+				
+				$newStat = new Paymentstat;
+				$newStat->status = -1;
+				$newStat->resNum = $ResNum;
+				$newStat->user_id = Auth::user()->id;
+				$newStat->save();
+				
                 $soapclient = new nusoap_client('https://acquirer.samanepay.com/payments/referencepayment.asmx?WSDL','wsdl');
                 $soapclient->debug_flag=true;
 				$soapProxy = $soapclient->getProxy();
@@ -146,6 +150,11 @@ class SepBankController extends Controller
                 else
                 {
                     $pay = Payment::where('orderCode',$ResNum)->first();
+					
+					$newStat->payment_id = $pay->id;
+					$newStat->status = 0;
+					$newStat->save();
+					
                     if($pay->price == $result)
                     {
                         if($pay->status == 0)
@@ -193,7 +202,10 @@ class SepBankController extends Controller
                             $bagPayBack->typePay_id = 182;
                             $bagPayBack->save();
 							
-                
+							$newStat->payment_id = $pay->id;
+							$newStat->status = 1;
+							$newStat->save();
+							
                             Cart::clear();
 
                             $message = 'تراکنش با موفقیت انجام شد.';

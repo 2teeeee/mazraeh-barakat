@@ -4,6 +4,9 @@
 <div class="container">
         @if(Cart::isEmpty())
         <div class="col-sm-12">
+			@if (Session::has('error'))
+				<div class="alert alert-danger my-2">{{ Session::get('error') }}</div>
+			@endif
             <div class="alert alert-warning">
                 سبد خرید شما خالی می باشد...
             </div>
