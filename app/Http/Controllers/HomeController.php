@@ -67,7 +67,7 @@ class HomeController extends Controller {
     
 public function testLang()
 {
-  //  return view('lan');
+    return view('lan');
 }
 	
 
