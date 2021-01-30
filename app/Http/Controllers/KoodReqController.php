@@ -626,6 +626,9 @@ class KoodReqController extends Controller
 			if($val > $brokerVal)
 			{
 				Cart::remove($item->id);
+				
+				$req->delete();
+				
 				Session::flash('error', 'کارگزار انتخابی ظرفیت کافی برای ارائه کود مورد نظر برای محصول '.$req->product->title.' شما را ندارد.');
                 
 				return Redirect::to('koodReq/cart');

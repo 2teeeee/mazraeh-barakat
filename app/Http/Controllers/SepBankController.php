@@ -127,10 +127,9 @@ class SepBankController extends Controller
             if($checkPay == null)
             {
 				
-				$newStat = new Paymentstat;
+				$newStat = new PaymentStat;
 				$newStat->status = -1;
 				$newStat->resNum = $ResNum;
-				$newStat->user_id = Auth::user()->id;
 				$newStat->save();
 				
                 $soapclient = new nusoap_client('https://acquirer.samanepay.com/payments/referencepayment.asmx?WSDL','wsdl');
@@ -175,12 +174,16 @@ class SepBankController extends Controller
                             $reqPay = RequestPay::where('bag_pay_id',$bagPay->id)->first();
                             $reqPay->status = 1;
                             $reqPay->save();
-
+							
+							$userId = null;
+							
                             foreach($reqPay->requestKood as $req):
                                 $koodReq = KoodReq::find($req->kood_request_id);
 								$koodReq->payment_id = $pay->id;
 								$koodReq->status = 1;
 								$koodReq->save();
+								
+								$userId  = $koodReq->user_id;
 							
 								$new = new BrokerKood;
 								$new->broker_id = $koodReq->broker_id;
@@ -204,6 +207,7 @@ class SepBankController extends Controller
 							
 							$newStat->payment_id = $pay->id;
 							$newStat->status = 1;
+							$newStat->user_id = $userId;
 							$newStat->save();
 							
                             Cart::clear();
