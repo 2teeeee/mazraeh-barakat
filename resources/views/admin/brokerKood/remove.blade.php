@@ -31,6 +31,13 @@
                         <input id="kood" type="hidden" class="form-control" name="kood" value="{{ $kood->id }}" >
                     </div>
                 </div>
+                <div class="row">
+                    
+                    <div class="form-group col-sm-6">
+                        <label for="broker" class="col-form-label text-md-right">میزانی که می توانید کم کنید: </label>
+                        <span>{{ $value }} تن</span>
+                    </div>
+                </div>
                 <div class="row" style="margin-bottom: 15px;">
                     
                     <div class="form-group col-sm-6">

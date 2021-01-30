@@ -268,6 +268,7 @@ class BrokerKoodController extends Controller
      
     	$model = User::find($id);
         $kood = Product::find($kood);
+		$value = $model->koodVal($kood->id);
 
         $crumb[0] = ['title'=>'صفحه اصلی','url'=>'profile/index.html','class'=>''];
         if(Auth::user()->hasRole('managerJahad'))
@@ -281,7 +282,8 @@ class BrokerKoodController extends Controller
         return view("admin.brokerKood.remove")->with([
             "crumb"=>$crumb,
             "model"=>$model,
-            'kood'=>$kood
+            'kood'=>$kood,
+			'value'=>$value
         ]);
     }
 
@@ -295,16 +297,17 @@ class BrokerKoodController extends Controller
     {
         $request->user()->authorizeRoles(['admin','managerJahad']);
      
+    	$model = User::find(Input::get('id'));
+        $kood = Product::find(Input::get('kood')); 
+		$value = $model->koodVal($kood->id);
+		
         // validate
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
-            'value' => ['required']
+            'value' => ['required','lte:'.$value,'min:1']
         );
         $validator = Validator::make(Input::all(), $rules);
 
-    	$model = User::find(Input::get('id'));
-        $kood = Product::find(Input::get('kood')); 
-        
         // process the login
         if ($validator->fails()) {
             return Redirect::to('brokerKood/'.$model->id.'/remove/'.$kood->id)

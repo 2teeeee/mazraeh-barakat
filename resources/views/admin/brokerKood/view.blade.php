@@ -36,10 +36,8 @@
                         <td>
 							
                             <a href="{{ url('brokerKood/'.$model->id.'/add/'.$kood->id) }}" title="افزایش سهمیه" class="text-success"><i class="fas fa-plus"></i></a>
-                         <?php /* 
-						 	<a href="{{ url('brokerKood/'.$model->id.'/remove/'.$kood->id) }}" title="کاهش سهمیه" class="text-danger"><i class="fas fa-minus"></i></a>
-                           */ ?>
-						   <a href="{{ url('brokerKood/report/'.$kood->id.'/'.$model->id) }}" title="گزارش تخصیص سهمیه" class="text-dark"><i class="fas fa-eye"></i></a>
+                        	<a href="{{ url('brokerKood/'.$model->id.'/remove/'.$kood->id) }}" title="کاهش سهمیه" class="text-danger"><i class="fas fa-minus"></i></a>
+							<a href="{{ url('brokerKood/report/'.$kood->id.'/'.$model->id) }}" title="گزارش تخصیص سهمیه" class="text-dark"><i class="fas fa-eye"></i></a>
                         </td>
                     </tr>
                     @endforeach
