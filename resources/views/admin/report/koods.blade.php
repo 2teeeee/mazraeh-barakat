@@ -12,8 +12,9 @@
     
     <div class="panel panel-default">
         <div class="panel-body border-bottom">
-			<form method="POST" action="{{ route('report/koodPost') }}">
+			<form method="POST" action="{{ route('report/koodPost') }}" id="frmPost">
                         @csrf
+                <input type="hidden" id="typeView" name="typeView" />
                 <div class="card-body px-0">
                     <div class="row">
                         <div class="form-group col-md-2 p-0">
@@ -119,10 +120,15 @@
 						</div>
                     
 						<div class="mt-3 mx-0 col-md-1 pt-1">
-							<button type="submit" class="btn btn-success mt-3">
+							<a href="#" onclick="viewTable()" class="btn btn-success mt-3 ">
 								مشاهده
-							</button>
+							</a>
 						</div>
+                        <div class="mt-3 mx-0 col-md-3 pt-1">
+                            <a href="#" onclick="viewexcel()" class="btn btn-success mt-3" name="btm">
+                                فایل اکسل
+                            </a>
+                        </div>
                     </div>
                 </div>
 			</form>
@@ -134,8 +140,17 @@
 			])
 
 			@endcomponent
-			
-        </div><div class="text-left">
+
+        </div>
+        {{--<div class="panel-body mt-2 table-responsive" id="response" >--}}
+            {{--@component('admin.report.reportTable', [--}}
+                {{--'response' => $response--}}
+            {{--])--}}
+
+            {{--@endcomponent--}}
+
+        {{--</div>--}}
+        <div class="text-left">
                     <a href="#print" onclick="openWin()" class="btn btn-info" title="چاپ">
                         <i class="fas fa-print"></i>
                         پرینت
@@ -239,6 +254,17 @@
 		$('#sendFrm').append('<input type="hidden" name="sendEndDate" value="'+endDate+'" />');
 		$('#sendFrm').submit();
 	}
+
+	function viewTable()
+    {
+        $("#typeView").val("0");
+        $("#frmPost").submit();
+    }
+    function viewexcel()
+    {
+        $("#typeView").val("1");
+        $("#frmPost").submit();
+    }
 	
 </script>
 

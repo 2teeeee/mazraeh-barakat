@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\KoodReqExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -18,16 +17,13 @@ use App\Models\KoodReq;
 use App\Models\Product;
 
 use Morilog\Jalali;
-use Maatwebsite\Excel\Facades\Excel;
 use Rafwell\Simplegrid\Grid;
 use App\User;
 use Auth;
 use DB;
 
-
 class ReportController extends Controller
-{
-
+{   
 	public function __construct()
     {
 		$this->middleware('auth');
@@ -128,9 +124,10 @@ class ReportController extends Controller
 			"kood_id" => $kood_id->id
         ]);
     }
-
+	
 	public function koodPost(Request $request)
     {
+		
         $request->user()->authorizeRoles(['admin','takhsis','managerJahad','nazer']);
         
         $crumb[0] = ['title'=>'صفحه اصلی','url'=>'profile/index.html','class'=>''];
@@ -149,17 +146,17 @@ class ReportController extends Controller
 							 	DB::raw('sum(tbl_kood_reqs.price_all) as price'),
 							 	DB::raw('count(DISTINCT tbl_kood_reqs.user_id) as keshavarz'),
 							 	DB::raw('sum(tbl_kood_reqs.sath) as sathZirKesht'),
-							 	DB::raw('sum(tbl_kood_reqs.updated_at) as tarikh'),
 							 	'users.name as name',
 							 	'users.company as company',
 							 	'users.mobile as mobile',
 							   	'users.id as id',
-								'cities.title as city')
+								'cities.title as city',
+							   	'kood_reqs.make_date')
 			->join('products','products.id','=','kood_reqs.kood_id')
-			->join('users','users.id','=','kood_reqs.broker_id')
+			->join('users','users.id','=','kood_reqs.user_id')
 			->join('cities','cities.id','=','users.city_id')
 			->where('kood_reqs.status','>',0)
-			->groupBy('kood_reqs.broker_id')
+			->groupBy('kood_reqs.user_id')
 			->groupBy('kood_reqs.kood_id');
 	
 		$brokers = [];
@@ -172,7 +169,6 @@ class ReportController extends Controller
                 ->where('role_user.role_id',11)
                 ->where('users.city_id',$ct->id)
                 ->get();
-
 		}
 		
 		if(Input::get('broker_id') <> '')
@@ -219,45 +215,25 @@ class ReportController extends Controller
 			
 			$response->whereDate('kood_reqs.make_date','<=',$endDate);
 		}
-//		dd($response->get());
+		
 		$response = $response->get();
-
-		if(Input::get('typeView') == 1)
-        return Excel::download(new KoodReqExport($response), 'users.xls');
-    else
-    {
-        return view("admin.report.koods")->with([
+        // load the view and pass the samRequest
+    	return view("admin.report.koods")->with([
             "crumb" => $crumb,
-            "citys" => $citys,
-            "response" => $response,
-            'koods' => $koods,
-            'products' => $products,
-            "ct_id" => Input::get('city_id'),
-            "ch" => 0,
-            "brokers" => $brokers,
-            "broker_id" => Input::get('broker_id'),
-            "startDate" => Input::get('startDate'),
-            "endDate" => Input::get('endDate'),
-            "kood_id" => Input::get('kood_id'),
-            "product_id" => Input::get('product_id'),
-            "ab_type" => Input::get('ab_type')
+			"citys" => $citys,
+			"response" => $response,
+			'koods' => $koods,
+			'products' => $products,
+			"ct_id" => Input::get('city_id'),
+			"ch" => 0,
+			"brokers" => $brokers,
+			"broker_id" => Input::get('broker_id'),
+			"startDate" => Input::get('startDate'),
+			"endDate" => Input::get('endDate'),
+			"kood_id" => Input::get('kood_id'),
+			"product_id" => Input::get('product_id'),
+			"ab_type" => Input::get('ab_type')
         ]);
-    }
-
-
-
-    }
-
-    public function excel()
-    {
-        //        dd('kl');
-        //        $users = User::select('id', 'name', 'email', 'created_at')->take(10)->get();
-        //        $users=new KoodReqExport();
-        //        dd($users);
-
-//        dd($response);
-        return Excel::download(new KoodReqExport(), 'users.xls');
-
     }
 	
 	public function getBroker()

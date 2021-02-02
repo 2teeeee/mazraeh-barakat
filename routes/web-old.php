@@ -32,6 +32,7 @@ Route::get('/contact.html', 'HomeController@contact');
 Route::post('contact.html', 'HomeController@contactSend')->name('contact.html');
 
 Route::get('test.html', 'HomeController@test');
+Route::get('wallet.html', 'HomeController@wallet');
 Route::get('checkcodemelli.html', 'HomeController@checkCodemelli')->name('checkcodemelli.html');
 Route::get('lan.html', 'HomeController@testLang');
 Route::get('sendUser', 'HomeController@sendUser');
@@ -54,6 +55,8 @@ Route::post('sep/verify', 'SepBankController@back');
 
 Route::get('generate-pdf','HomeController@generatePDF');
 
+
+Route::get('home/lock_broker.html', 'HomeController@lockBroker');
 
 Route::get('importExcel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'));
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
@@ -369,7 +372,6 @@ Route::get('userReq/pay/{id}','KoodReqController@ezharPay');
 Route::post('userReq/ezharPay/{id}', 'KoodReqController@ezharPayEnd')->name('userReq/ezharPay');
 // *********************  Report **********************
 Route::get('report/koods', 'ReportController@koodRep');
-Route::get('report/koods/excel/{response?}', 'ReportController@excel')->name('koods/excel');
 Route::post('report/koodPost', 'ReportController@koodPost')->name('report/koodPost');
 
 Route::get('report/brokerKoods', 'ReportController@brokerRep');
