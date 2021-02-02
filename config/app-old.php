@@ -695,7 +695,6 @@ return [
         App\Providers\ComposerServiceProvider::Class,
 
 
-        Maatwebsite\Excel\ExcelServiceProvider::class,
 
 
 
@@ -906,7 +905,6 @@ return [
 		'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
 
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

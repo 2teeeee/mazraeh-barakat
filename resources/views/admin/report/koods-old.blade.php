@@ -51,6 +51,23 @@
                             </div>
                         </div>
 						<div class="form-group col-md-2 p-0">
+                            <label for="product_id" class="col-md-12 col-form-label text-md-right">{{ __('validation.attributes.product_id') }} </label>
+
+                            <div class="col-md-12">
+                                <select name="product_id" id="product_id" class="form-control {{ $errors->has('product_id') ? ' is-invalid' : '' }}">
+                                    <option selected value>همه محصول ها</option>
+                                    @foreach ($products as $product)
+                                        <option {{ (old('product_id') == $product->id)?'selected':(($product_id == $product->id)?'selected':'') }} value="{{ $product->id }}">{{ $product->title }}</option>
+                                    @endforeach
+                                </select>
+                                @if ($errors->has('product_id'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('product_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+						<div class="form-group col-md-2 p-0">
                             <label for="kood_id" class="col-md-12 col-form-label text-md-right">{{ __('validation.attributes.kood_id') }} </label>
 
                             <div class="col-md-12">
@@ -62,6 +79,22 @@
                                 @if ($errors->has('kood_id'))
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $errors->first('kood_id') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+						<div class="form-group col-md-3 p-0">
+                            <label for="ab_type" class="col-md-12 col-form-label text-md-right">نوع آبیاری </label>
+
+                            <div class="col-md-12">
+                                <select name="ab_type" id="ab_type" class="form-control {{ $errors->has('ab_type') ? ' is-invalid' : '' }}">
+                                	<option  value="">همه نوع آبیاری</option>
+                                	<option {{ (old('ab_type') == 6)?'selected':(($ab_type == 6)?'selected':'') }} value="6">آبی</option>
+                                	<option {{ (old('ab_type') == 7)?'selected':(($ab_type == 7)?'selected':'') }} value="7">دیمی</option>
+                                </select>
+                                @if ($errors->has('ab_type'))
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $errors->first('ab_type') }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -134,6 +167,12 @@
         dir: "rtl",
     });
     $('#kood_id').select2({
+        dir: "rtl",
+    });
+    $('#product_id').select2({
+        dir: "rtl",
+    });
+    $('#ab_type').select2({
         dir: "rtl",
     });
       // Department Change
