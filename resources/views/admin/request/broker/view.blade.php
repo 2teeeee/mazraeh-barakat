@@ -84,12 +84,7 @@
                             <i class="fas fa-check"></i>
                             تحویل داده شد
                         </a>
-                        @if($model->make_date < date('Y-m-d', strtotime('-5 days')))
-                        <a href="{{ url('brokerKoodReq/'.$model->id.'/back') }}" class="btn btn-info" title="تحویل داده شد">
-                            <i class="fas fa-check"></i>
-                            مرجوع کردن حواله
-                        </a>
-                        @endif
+                        
                     @endif
                 </div>
                 @endif
