@@ -623,7 +623,7 @@ class KoodReqController extends Controller
 			$req = KoodReq::find($item->id);
 			$brokerVal = $req?($req->broker->koodValBag($req->kood_id)):0;
 			$val = $req->value;
-			if($val > $brokerVal)
+			if($val > ($brokerVal + $val))
 			{
 				Cart::remove($item->id);
 				
