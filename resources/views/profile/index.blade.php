@@ -56,7 +56,7 @@
         </div>
     </div>
 
-    @if(Auth::user()->authorizeCheck(['admin','manager','programmer','managerJahad','takhsis','nazer']))
+    @if(Auth::user()->authorizeCheck(['admin','manager','programmer','managerJahad','takhsis','nazer','checkPahne']))
         <div class="row">
             <div class="col-12 bg-title rounded p-2 font-light font-weight-bold">
                 مدیریت
