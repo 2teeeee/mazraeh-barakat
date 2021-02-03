@@ -154,7 +154,7 @@ class KoodReqController extends Controller
 
 		$maxValue = $ProductSquare * 8500;
 
-		$shotValue = ShotooiValue::where('user_id',Auth::id())->where('product_id',$kesht->product_id)->sum('value');
+		$shotValue = ShotooiValue::where('user_id',Auth::id())->where('product_id',$kesht->product_id)->where('city_id',$kesht->ct->id)->sum('value');
 		
 		$maxShot = $shotValue;
 		if($shotValue > $maxValue)
